@@ -1,0 +1,335 @@
+Course:
+	Do this later
+		Sec 14 Animations
+		Sec 15 Angular Material
+		Sec 16 Redux
+		Sec 17 Unit Testing
+		Sec 18 Integration Testing
+
+ToDo:
+	Do Essential:
+		Fundamentals of TS and OOP
+		Angular Fundamentals
+		Displaying data and handling events
+		Components
+		Directives
+		Template-driven forms
+		Sec 8 --Reactive forms (DO THIS after the proj)
+		Sec 9 --Consuming HTTP services (DO THIS after the proj)
+		Routing and navigation
+		Sec 11 --Authentication and authorization (DO THIS after the proj)
+		Deployment
+		Building real-time, serverless application with firebase
+	Final Project: Sec 19 and onwards
+		Project Management
+		Cart
+		check out
+		etc.
+
+will create a project using angular firebase bootstrap
+
+
+Angular
+=======
+
+Installation
+	https://nodejs.org/en/
+	install the stable version that says 'Recommended For Most Users'
+
+	go to command prompt and check ver (node --version)
+	
+Install third party libraries using 'Node Package Manager' NPM
+	install library Angular CLI (command line interface)
+	c:\npm install -g @angular/cli (where g=global followed by name of the pkg)
+	to confirm the installation say
+	ng --version
+
+First Angular App
+	create app
+	ng new hello-world (where hello-world is a project name)
+	
+
+Code editor - IDE
+	code.visualstudio.com
+	shift+cntrl+p
+	go to the folder where project was created
+	open the project
+	code . (opens up the VS code for current project)
+
+open application in webserver
+	c:/hello-world/ng serve
+	http://localhost:4200
+
+
+create new component
+	ng g c course  (g=generate c=component course=name of the component you want to create)
+
+ng serve -- localhost:4200
+
+
+
+
+Install type script:
+
+	npm install -g typescript
+	tsc --version
+
+create new typescript file and open with IDE
+	mkdir ts-hello
+	cd ts-hello/
+	code main.ts
+	-- write JS program (which is valid type script code too)
+
+Code
+	function log(message) {
+		console.log(message);
+	}
+
+	car message = 'Hello world';
+
+	log(message);
+
+compile the code
+
+	tsc main.ts
+	ls (will create .ts and .js file)
+	
+
+run the code
+	node main.js
+
+new feature which are in TS but not in JS
+
+	var number = 1;
+	let count = 2;
+
+
+code (variable declared with var keyword is accessible outside too (may not be good))
+	function doSomething() {
+		for (var i=0; i< 5; i++) {
+			console.log(i);
+		}
+		console.log('Finally: ' + 1);
+	}
+
+	doSomething();
+
+run
+	tsc main.s | node main.js
+
+
+data types
+
+	let count = 5;
+	count = 'a'; --- compilation error (in JS you can change the type on the fly) this will give compile error but will generate valid js file
+
+	let a; (any type)
+	a = 1;
+	a = true;
+	a = 'a';
+	-- use type annotation
+	let a: number;
+
+	let b: boolean;
+	let c: string;
+	let d: any;
+	let e: number[] = [1,2,3];
+	let f: any[] = [1, true, 'a', false];
+	const ColorRed = 0;
+	const ColorGreen = 1;
+
+	enum Color{ Red, Green } -- first element get 0 value then onwards
+	let backGcolor = Color.Blue;
+
+Type assertions
+
+	let message = 'abc'; -- string type
+	let endwithc = message.endsWith('c');
+
+	let message;	-- any type
+	message = 'abc';
+
+	let endwithc = message.endsWith('c');
+	different way (mostly used)
+	let endwithc = (<string>message).endsWith('c');
+	another way
+	let endwithc = (message as string).endsWith('c');
+
+arrow functions - Lambda Expression
+
+	let log = function(message) {
+		console.log(message);
+	}
+
+	another way
+	let doLog = (message) => {
+		console.log(message);
+	}
+
+	another way - if just one line function (Lambda Expression)
+	let doLog = (message) => console.log(message);
+
+
+Interfaces
+
+	let drawPoints = (x,y) => {
+		//..
+	}
+
+	ways to change it
+
+	let drawPoints = (point) => {
+		//..
+	}
+	
+	then call it
+	
+	drawPoint({
+		x: 1,
+		y: 2 	
+	})
+
+	--using interface
+
+	interface Point {
+		x: number;
+		y: number;
+	}
+
+	// define a method
+	let drawPoint= (point: Point) => {
+		//point.....
+	}
+
+	// call a method
+	drawPoint({
+		x: 1,
+		y: 2
+	})
+
+
+	-- Cohession - related things should be together
+	-- function drawPoint is related to point interface and they shld be together i.e. all this should be in a class instead of an interface
+	-- and since drawPoint or any other method (if there is any) can access member var (property objects) we dont need to pass a parameter in these functions.
+
+Class
+
+	class Point {
+		x: number;
+		y: number;
+	
+		let drawPoint () {
+			console.log('X is ' + this.x + ' Y is: ' + this.y); 
+		}
+	
+	}
+
+
+	let point = new Point();
+	point.x = 1;
+	point.y = 2;
+	point.drawPoint();
+
+
+
+Constructors
+
+	class Point {
+		x: number;
+		y: number;
+	
+		constructor(x: number, y:number) {             // to make x and y optional parameter you may say : x?: number, y?:number.. you can't have multiple consutructors in type script (diff sig).. but optional is a workaround
+			this.x = x;
+			this.y = y;
+		}
+
+		let drawPoint () {
+			console.log('X is ' + this.x + ' Y is: ' + this.y); 
+		}
+	
+	}
+
+
+	let point = new Point(1, 2);
+	point.drawPoint();
+	
+
+Access modifier
+
+	public
+	private
+	protected
+
+
+Property
+
+	class Point {
+		x: number;
+		y: number;
+	
+		constructor(private x: number, privatey:number) {  
+			//this.x = x;		there is no need of initialization. since in the constructor with specified var access modifier which will assign the value we pass to member var - cool feature
+			//this.y = y;
+		}
+
+		let drawPoint () {
+			console.log('X is ' + this.x + ' Y is: ' + this.y); 
+		}
+	
+		getX() {
+			return this.x;
+		}
+
+		setX(value) {
+			if (value < 0)
+				throw new Error('value can't be less than zero');
+
+			this.x = value;
+		}
+	
+	}
+
+
+	let point = new Point(1, 2);
+	point.setX(10);
+	point.drawPoint();
+
+
+
+	// so instead of this setter or getter we can use property in type script
+	// if you dont have setter.. you can set a property value from outside (if there is such requirement).. same goes with get.
+
+	class Point {
+		x: number;
+		y: number;
+	
+		constructor(private x: number, privatey:number) {  
+			//this.x = x;		there is no need of initialization. since in the constructor with specified var access modifier which will assign the value we pass to member var - cool feature
+			//this.y = y;
+		}
+
+		let drawPoint () {
+			console.log('X is ' + this.x + ' Y is: ' + this.y); 
+		}
+	
+		// see the difference here; now X has become a property variable which you can access from instance of this class.. like used below in the code
+		get X() {
+			return this.x;
+		}
+
+		// see the difference here; now X has become a property variable which you can access from instance of this class.. like used below in the code		set X(value) {
+			if (value < 0)
+				throw new Error('value can't be less than zero');
+
+			this.x = value;
+		}
+	
+	}
+
+
+	let point = new Point(1, 2);
+	let x = point.X; -- get property
+	point.X = 10;	-- set property
+	point.drawPoint();
+
+	
